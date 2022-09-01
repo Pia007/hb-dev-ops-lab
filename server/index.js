@@ -24,6 +24,8 @@ rollbar.log("Hello world!");
 
 const dreams = ['Win A Million Bucks', 'Swim in the Bellagio Fountains', 'VIP Tickets to A Show'];
 
+app.use(express.static(path.join(__dirname, '../public')));
+
 app.get('/', (req, res) => {
     res.sendfile(path.join(__dirname, '../index.html'));
 
