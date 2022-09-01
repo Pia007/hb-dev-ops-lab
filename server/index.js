@@ -25,7 +25,7 @@ rollbar.log("Hello world!");
 const dreams = ['Win A Million Bucks', 'Swim in the Bellagio Fountains', 'VIP Tickets to A Show'];
 
 app.get('/', (req, res) => {
-    res.sendfile(path.join(__dirname, '/index.html'));
+    res.sendfile(path.join(__dirname, '../index.html'));
 
     rollbar.log("Some one has a Dream");
 });

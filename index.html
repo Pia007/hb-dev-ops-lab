@@ -96,7 +96,7 @@
 
         // get request for page load
         axios
-            .get('/api/dreams')
+            .get('http://localhost:5050/api/dreams')
             .then(res => {
                 putTheThingInTheView(res)
             })
