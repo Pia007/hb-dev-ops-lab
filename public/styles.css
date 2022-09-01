@@ -90,17 +90,18 @@ form {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 2px solid #20d693;
+    /* border: 2px solid #20d693; */
 }
 
 input {
     height: 35px;
     width: 75%;
+    margin-bottom: 30px;
     padding: 5px 8px;
 
     font-size: 18px;
     font-weight: bold;
-    color: #20d693;
+    color: #3d539e;
 
     border: 3px double #20d693;
     border-radius: 8px;
@@ -123,7 +124,8 @@ input:active {
             inset -9px -9px 18px #bff7e3;
 	outline: none;
 }
-button {
+button,
+.close {
     height: 35px;
     border: 2px double #3d539e;
     border-radius: 5px;
@@ -147,4 +149,23 @@ button:active {
     cursor: pointer;
     box-shadow: inset 3px 3px 6px #2d3d74,
         -3px -3px 6px #3d539e;
+}
+.dreams-list {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    /* border: 2px solid #20d693; */
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+p {
+    font-size: .75em;
+    font-weight: bold;
+    color: #20d693;
+    font-family: 'RaleWay Dots', sans-serif;
+    text-shadow: 5px 5px 3px #3d539e;
+    text-align: center;
 }

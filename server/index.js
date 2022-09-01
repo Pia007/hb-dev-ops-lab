@@ -31,10 +31,49 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/dreams', (req, res) => {
-    rollbar.info("Dreams Listed")
+    rollbar.info("Dreams Listed");
+
     res.status(200).send(dreams);
+});
+
+app.post('/api/dreams', (req, res) => {
+    let {name} = req.body
+
+
+    const index = dreams.findIndex(dream => {
+        return dream === name
+    })
+
+    try {
+        if (index === -1 && name !== '') {
+            dreams.push(name)
+
+            // log and object 
+            rollbar.log("Dream added successfully", { author: "User", type: "manually"});
+            
+            res.status(200).send(dreams)
+        } else if (name === ''){
+            // rollbar error
+            rollbar.error("No dream provied");
+            res.status(400).send('You must enter a dream.')
+        } else {
+            // rollbar error
+            rollbar.error("Dream already exists")
+            res.status(400).send('That dream already exists.')
+        }
+    } catch (err) {
+        console.log(err)
+    }
+});
+
+
+app.delete('/api/dreams/:index', (req, res) => {
+    const targetIndex = +req.params.index
     
-    
+    //
+    rollbar.info("Dream  was deleted");
+    dreams.splice(targetIndex, 1)
+    res.status(200).send(dreams)
 })
 
 

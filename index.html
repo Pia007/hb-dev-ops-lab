@@ -9,7 +9,7 @@
         href="https://fonts.googleapis.com/css2?family=Raleway+Dots&family=Raleway:ital,wght@0,400;0,500;0,700;0,800;1,400;1,700&display=swap"
         rel="stylesheet">
     <script src="https://kit.fontawesome.com/9794dd2b19.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/public/styles.css">
     <title>Viva Las Vegas</title>
 </head>
 
@@ -33,9 +33,6 @@
                 <form action="">
                     <input type="text" placeholder="Enter Your Wildest Dream">
                     <button type="submit"> Let's Party</button>
-                    <!-- <div>
-                        <button type="submit"> Let's Party</button>
-                    </div> -->
                 </form>
             </div>
         </section>
@@ -49,7 +46,7 @@
         const dreamInput = document.querySelector('input');
         const dreamSection = document.querySelector('.dreams-list');
 
-        function putTheThingInTheView(res) {
+        function displayDreams(res) {
             dreamSection.innerHTML = ''
             dreamInput.value = ''
 
@@ -64,8 +61,8 @@
                     axios
                         .delete(`/api/dreams/${theIndexValue}`)
                         .then(res => {
-                            putTheThingInTheView(res)
-                        })
+                            displayDreams(res)
+                        });
                 })
             })
         }
@@ -76,7 +73,7 @@
             axios
                 .post('/api/dreams', { name: dreamInput.value })
                 .then(res => {
-                    putTheThingInTheView(res)
+                    displayDreams(res)
                 })
                 .catch(err => {
                     dreamInput.value = ''
@@ -96,9 +93,9 @@
 
         // get request for page load
         axios
-            .get('http://localhost:5050/api/dreams')
+            .get('/api/dreams')
             .then(res => {
-                putTheThingInTheView(res)
+                displayDreams(res)
             })
 
         form.addEventListener('submit', submitHandler)
