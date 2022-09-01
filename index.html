@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Raleway+Dots&family=Raleway:ital,wght@0,400;0,500;0,700;0,800;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9794dd2b19.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <title>Viva Las Vegas</title>
+</head>
+
+<body>
+    <header>
+        <div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </header>
+    <div>
+        <section>
+            <h1>Viva Las Vegas!</h1>
+        </section>
+        <section>
+            <div>
+                <form action="">
+                    <input type="text" placeholder="Enter Your Wildest Dream">
+                    <button type="submit"> Let's Party</button>
+                    <!-- <div>
+                        <button type="submit"> Let's Party</button>
+                    </div> -->
+                </form>
+            </div>
+        </section>
+    </div>
+    <section class="dreams-list"></section>
+
+    <!-- install axios from node modules -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        const form = document.querySelector('form');
+        const dreamInput = document.querySelector('input');
+        const dreamSection = document.querySelector('.dreams-list');
+
+        function putTheThingInTheView(res) {
+            dreamSection.innerHTML = ''
+            dreamInput.value = ''
+
+            res.data.forEach((dream, index) => {
+                dreamSection.innerHTML += `<p name=${index}>${dream}</p>`
+            })
+
+            document.querySelectorAll('p').forEach(element => {
+                const theIndexValue = element.getAttribute('name');
+
+                element.addEventListener('click', () => {
+                    axios
+                        .delete(`/api/dreams/${theIndexValue}`)
+                        .then(res => {
+                            putTheThingInTheView(res)
+                        })
+                })
+            })
+        }
+
+        function submitHandler(evt) {
+            evt.preventDefault();
+
+            axios
+                .post('/api/dreams', { name: dreamInput.value })
+                .then(res => {
+                    putTheThingInTheView(res)
+                })
+                .catch(err => {
+                    dreamInput.value = ''
+
+                    const notif = document.createElement('aside')
+                    notif.innerHTML = `<p>${err.response.data}</p>
+                    <button class="close">close</button>`
+                    document.body.appendChild(notif)
+
+                    document.querySelectorAll('.close').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.target.parentNode.remove()
+                        })
+                    })
+                })
+        }
+
+        // get request for page load
+        axios
+            .get('http://127.0.0.1:3000/api/dreams')
+            .then(res => {
+                putTheThingInTheView(res)
+            })
+
+        form.addEventListener('submit', submitHandler)
+    </script>
+</body>
+
+</html>
