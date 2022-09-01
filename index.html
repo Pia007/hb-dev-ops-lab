@@ -96,7 +96,7 @@
 
         // get request for page load
         axios
-            .get('http://127.0.0.1:3000/api/dreams')
+            .get('/api/dreams')
             .then(res => {
                 putTheThingInTheView(res)
             })
