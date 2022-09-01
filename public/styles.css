@@ -17,6 +17,12 @@ header {
     margin-bottom: 30px;
 }
 
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
 div > ul {
     list-style-type: none;
     margin: 0;
@@ -159,6 +165,7 @@ button:active {
     padding: 20px;
     /* border: 2px solid #20d693; */
     background-color: rgba(0, 0, 0, 0.5);
+    border: 3px double #20d693;
 }
 
 p {
